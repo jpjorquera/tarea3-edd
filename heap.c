@@ -75,6 +75,22 @@ void insertHeap(HeapMin *heap, unsigned int value){
 	flotar(heap, i);						// Intentar flotar de ser necesario en esa posicion
 }
 
+/*****
+* void freeHeap
+******
+* Libera memoria usada por el Heap
+******
+* Input:
+* HeapMin * heap : puntero del Heap que se desea liberar
+******
+* Returns:
+* void
+*****/
+void freeHeap(HeapMin *heap){
+	free(heap->values);				// Liberar array de valores
+	free(heap);						// Liberar Heap
+}
+
 int main (){												// Main de prueba
 	unsigned short tam_arbitrario = 8;						// Tamano para el array de valores
 
@@ -88,5 +104,7 @@ int main (){												// Main de prueba
 		insertHeap(colap, prueba[i]);						// Insertar en Heap
 		i++;
 	}
+
+	freeHeap(colap);										// Liberar Heap
 	return 1;
 }
