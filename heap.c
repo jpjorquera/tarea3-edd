@@ -20,6 +20,7 @@ typedef struct {				// Struct para almacenar Heap de Minimos
 *****/
 void inicializar(HeapMin *heap, unsigned short tam){
 	heap->values = (unsigned int *)calloc(tam+1, sizeof(unsigned int));		// Inicializar valores con 0
+	heap->size = 0;
 }
 
 /*****
@@ -36,7 +37,7 @@ void inicializar(HeapMin *heap, unsigned short tam){
 * void
 *****/
 void flotar(HeapMin *heap, unsigned short pos_hijo){
-	if (pos_hijo == 0){						// Caso base al llegar a la raiz
+	if (pos_hijo == 1){						// Caso base al llegar a la raiz
 		return;
 	}
 	unsigned short padre;					// Calcular posicion del padre
@@ -67,12 +68,9 @@ void flotar(HeapMin *heap, unsigned short pos_hijo){
 * void
 *****/
 void insertHeap(HeapMin *heap, unsigned int value){
-	unsigned short i = 1;					// Buscar primera posicion vacia
-	while (heap->values[i] != 0){			// ignorando la primera
-		i++;
-	};
-	heap->values[i] = value;				// Asignar valor
-	flotar(heap, i);						// Intentar flotar de ser necesario en esa posicion
+	heap->values[++heap->size] = value;				// Asignar valor
+	flotar(heap, heap->size);						// Intentar flotar de ser necesario en esa posicion
+
 }
 
 /*****
@@ -96,7 +94,7 @@ int main (){												// Main de prueba
 
 	HeapMin *colap = (HeapMin *)malloc(sizeof(HeapMin));	// Creacion Heap
 	inicializar(colap, tam_arbitrario);						// Inicializacion
-	colap->size = tam_arbitrario;
+	//colap->size = tam_arbitrario;
 
 	unsigned int prueba[8] = {5, 7, 4, 100, 59, 2, 6, 1};	// Caso de prueba
 	int i = 0;
