@@ -68,7 +68,7 @@ void flotar(HeapMin *heap, unsigned short pos_hijo){
 * void
 *****/
 void insertHeap(HeapMin *heap, unsigned int value){
-	heap->values[++heap->size] = value;				// Asignar valor
+	heap->values[++heap->size] = value;				// Actualizar tamano, asignar valor
 	flotar(heap, heap->size);						// Intentar flotar de ser necesario en esa posicion
 
 }
@@ -94,7 +94,6 @@ int main (){												// Main de prueba
 
 	HeapMin *colap = (HeapMin *)malloc(sizeof(HeapMin));	// Creacion Heap
 	inicializar(colap, tam_arbitrario);						// Inicializacion
-	//colap->size = tam_arbitrario;
 
 	unsigned int prueba[8] = {5, 7, 4, 100, 59, 2, 6, 1};	// Caso de prueba
 	int i = 0;
