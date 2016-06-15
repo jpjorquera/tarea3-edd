@@ -89,19 +89,78 @@ void freeHeap(HeapMin *heap){
 	free(heap);						// Liberar Heap
 }
 
+void Hundir(HeapMin *heap, int posicion){
+	unsigned int izq=0, der=0;
+	int pos=0;
+	if((posicion*2) <= heap->size){
+		izq = heap->values[posicion*2];
+	}
+	if(((posicion*2)+1) <= heap->size){
+		der = heap->values[(posicion*2)+1];
+	}
+	if(izq > 0){
+		if(der > 0){
+			if(izq < heap->values[posicion]){
+				if(izq < der){
+					unsigned int aux = heap->values[posicion];
+					heap->values[posicion] = izq;
+					heap->values[posicion*2] = aux;
+					pos = posicion*2;
+				}
+				else{
+					unsigned int aux = heap->values[posicion];
+					heap->values[posicion] = der;
+					heap->values[(posicion*2)+1] = aux;
+					pos = (posicion*2)+1;
+				}
+			}
+			if(der<heap->values[posicion]){
+				unsigned int aux = heap->values[posicion];
+				heap->values[posicion] = der;
+				heap->values[(posicion*2)+1] = aux;
+				pos = (posicion*2)+1;
+			}
+		}
+		if(izq < heap->values[posicion]){
+			unsigned int aux = heap->values[posicion];
+			heap->values[posicion] = izq;
+			heap->values[posicion*2] = aux;
+			pos = posicion*2;
+		}
+	}
+	if(pos==0){
+		return;
+	}
+	Hundir(heap, pos);
+}
+
+unsigned int SacarValor(HeapMin *heap){
+	unsigned int aux = heap->values[1];
+	heap->values[1]= heap->values[(heap->size)--];
+	Hundir(heap, 1);
+	return aux;
+}
+
 int main (){												// Main de prueba
 	unsigned short tam_arbitrario = 8;						// Tamano para el array de valores
 
 	HeapMin *colap = (HeapMin *)malloc(sizeof(HeapMin));	// Creacion Heap
 	inicializar(colap, tam_arbitrario);						// Inicializacion
 
-	unsigned int prueba[8] = {5, 7, 4, 100, 59, 2, 6, 1};	// Caso de prueba
+	unsigned int prueba[4] = {7, 5, 4, 1};	// Caso de prueba
 	int i = 0;
-	while (i<8){
+	while (i<4){
 		insertHeap(colap, prueba[i]);						// Insertar en Heap
 		i++;
 	}
-
+	SacarValor(colap);
+	SacarValor(colap);
+	SacarValor(colap);
+	i = 1;
+	while (i<=1){
+		printf("%d\n", colap->values[i]);
+		i++;
+	}
 	freeHeap(colap);										// Liberar Heap
 	return 1;
 }
