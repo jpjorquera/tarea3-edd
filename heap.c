@@ -142,9 +142,10 @@ unsigned int SacarValor(HeapMin *heap){
 }
 
 int main (){
-	unsigned int total, numero, i, valor, suma;												// Main de prueba
+	unsigned int numero, i, valor, suma;												// Main de prueba
+	unsigned short total;
 	printf("Cuantos numeros quiere sumar?: ");
-	scanf("%u",&total);
+	scanf("%hu",&total);
 	while (total!=0) {
 		HeapMin *colap = (HeapMin *) malloc(sizeof(HeapMin));
 		inicializar(colap, total);
@@ -157,15 +158,19 @@ int main (){
 		}
 		i = 0;
 		while (i < total) {
-			valor = colap->values[1]; //Asigna a valor la raiz del heap.
-			SacarValor(colap);
-			suma = suma + valor;
+			valor = SacarValor(colap);
+			if (i<=1){
+				suma += valor;
+			}
+			else {
+				suma += suma + valor;
+			}
 			i++;
 		}
 		printf("El menor costo de la suma es: %u\n", suma);
 		freeHeap(colap);
 		printf("Cuantos numeros quiere sumar?: ");
-		scanf("%u", &total);
+		scanf("%hu", &total);
 	}
 	/*unsigned short tam_arbitrario = 8;						// Tamano para el array de valores
 
