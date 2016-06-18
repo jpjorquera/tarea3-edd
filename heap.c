@@ -151,7 +151,7 @@ int main (){
 		i=suma=0;
 		while (i < total) {
 			printf("Ingrese numero a sumar: ");
-			scanf("%d", &numero);
+			scanf("%u", &numero);
 			insertHeap(colap, numero);
 			i++;
 		}
