@@ -141,26 +141,34 @@ unsigned int SacarValor(HeapMin *heap){
 	return aux;
 }
 
-int main (){												// Main de prueba
-	unsigned short tam_arbitrario = 8;						// Tamano para el array de valores
-
-	HeapMin *colap = (HeapMin *)malloc(sizeof(HeapMin));	// Creacion Heap
-	inicializar(colap, tam_arbitrario);						// Inicializacion
-
-	unsigned int prueba[4] = {7, 5, 4, 1};	// Caso de prueba
-	int i = 0;
-	while (i<4){
-		insertHeap(colap, prueba[i]);						// Insertar en Heap
-		i++;
+int main (){
+	unsigned int i, valor, suma, costo_actual;												// Main de prueba
+	unsigned short total;
+	printf("Cuantos numeros quiere sumar?: ");
+	scanf("%hu",&total);
+	while (total!=0) {
+		HeapMin *colap = (HeapMin *) malloc(sizeof(HeapMin));
+		inicializar(colap, total);
+		i=0;
+		while (i < total) {
+			printf("Ingrese numero a sumar: ");
+			scanf("%u", &valor);
+			insertHeap(colap, valor);
+			i++;
+		}
+		i = suma = 0;
+		valor = SacarValor(colap);					// Asignar valor inicial
+		costo_actual = valor;
+		while (i < total-1) {
+			valor = SacarValor(colap);
+			costo_actual += valor;
+			suma += costo_actual;
+			i++;
+		}
+		printf("El menor costo de la suma es: %u\n", suma);
+		freeHeap(colap);
+		printf("Cuantos numeros quiere sumar?: ");
+		scanf("%hu", &total);
 	}
-	SacarValor(colap);
-	SacarValor(colap);
-	SacarValor(colap);
-	i = 1;
-	while (i<=1){
-		printf("%d\n", colap->values[i]);
-		i++;
-	}
-	freeHeap(colap);										// Liberar Heap
 	return 1;
 }
