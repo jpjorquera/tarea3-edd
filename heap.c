@@ -147,19 +147,19 @@ int main (){
 	printf("Cuantos numeros quiere sumar?: ");
 	scanf("%hu",&total);
 	while (total!=0) {
-		HeapMin *colap = (HeapMin *) malloc(sizeof(HeapMin));
-		inicializar(colap, total);
+		HeapMin *colap = (HeapMin *) malloc(sizeof(HeapMin));		// Reserva memoria para el HeapMin
+		inicializar(colap, total);					// Inicia el heap,con valores y tamanno en 0 
 		i=0;
 		while (i < total) {
 			printf("Ingrese numero a sumar: ");
 			scanf("%u", &valor);
-			insertHeap(colap, valor);
+			insertHeap(colap, valor);				// Inserta en el heap colap el valor leído de la consola
 			i++;
 		}
 		i = suma = 0;
 		valor = SacarValor(colap);					// Asignar valor inicial
 		costo_actual = valor;
-		while (i < total-1) {
+		while (i < total-1) {						//Iteración que suma los costos de las sumas.
 			valor = SacarValor(colap);
 			costo_actual += valor;
 			suma += costo_actual;
