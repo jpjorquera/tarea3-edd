@@ -89,6 +89,18 @@ void freeHeap(HeapMin *heap){
 	free(heap);						// Liberar Heap
 }
 
+/*****
+* void Hundir
+******
+* Hunde el valor de la posición introducida para mantener el heap minimo
+******
+* Input:
+* HeapMin * heap : puntero al Heap en el cual se esta trabajando
+* int posicion : posicion actual del nodo que se va a hundir
+******
+* Returns:
+* void
+*****/
 void Hundir(HeapMin *heap, int posicion){
 	unsigned int izq=0, der=0;
 	int pos=0;
@@ -134,6 +146,18 @@ void Hundir(HeapMin *heap, int posicion){
 	Hundir(heap, pos);
 }
 
+/*****
+* unsigned int SacarValor
+******
+* Intercambia la raiz del heap por el ultimo valor y llama a la funcion Hundir para dejar el heap como minimo,
+* luego sacar el valor minimo del heap como un unsigned int
+******
+* Input:
+* HeapMin * heap : puntero al Heap en el cual se esta trabajando
+******
+* Returns:
+* unsigned int, retorna el valor minimo del heap
+*****/
 unsigned int SacarValor(HeapMin *heap){
 	unsigned int aux = heap->values[1];
 	heap->values[1]= heap->values[(heap->size)--];
