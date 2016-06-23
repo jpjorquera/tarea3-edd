@@ -189,10 +189,11 @@ int main (){
 			suma += costo_actual;
 			i++;
 		}
-		printf("El menor costo de la suma es: %u\n", suma);
+		printf("\nEl menor costo de la suma es: %u\n", suma);
 		freeHeap(colap);
-		printf("Cuantos numeros quiere sumar?: ");
+		printf("\nCuantos numeros quiere sumar?: ");
 		scanf("%hu", &total);
 	}
+	printf("\n");
 	return 1;
 }
