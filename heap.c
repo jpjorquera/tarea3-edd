@@ -104,46 +104,46 @@ void freeHeap(HeapMin *heap){
 void Hundir(HeapMin *heap, int posicion){
 	unsigned int izq=0, der=0;
 	int pos=0;
-	if((posicion*2) <= heap->size){
+	if((posicion*2) <= heap->size){               //alamacena hijo izq si es que existe     
 		izq = heap->values[posicion*2];
 	}
-	if(((posicion*2)+1) <= heap->size){
+	if(((posicion*2)+1) <= heap->size){           //alamacena hijo der si es que existe 
 		der = heap->values[(posicion*2)+1];
 	}
-	if(izq > 0){
-		if(der > 0){
+	if(izq > 0){       //verifica que exista el hijo izq
+		if(der > 0){        //verifica que exista el hijo der
 			if(izq < heap->values[posicion]){
-				if(izq < der){
-					unsigned int aux = heap->values[posicion];
-					heap->values[posicion] = izq;
-					heap->values[posicion*2] = aux;
-					pos = posicion*2;
+				if(izq < der){                //intercambia valores en el heap si el menor es el hijo izq
+					unsigned int aux = heap->values[posicion];    //genera un auxiliar con el valor del nodo actual
+					heap->values[posicion] = izq;    //cambia el valor del nodo por el valor de su hijo izq
+					heap->values[posicion*2] = aux;    //el hijo izq adquiere el valor del nodo actual
+					pos = posicion*2;    //nueva posicion del nodo actual
 				}
-				else{
+				else{                         //intercambia valores en el heap si el menor es el hijo der
 					unsigned int aux = heap->values[posicion];
 					heap->values[posicion] = der;
 					heap->values[(posicion*2)+1] = aux;
 					pos = (posicion*2)+1;
 				}
 			}
-			if(der<heap->values[posicion]){
+			if(der<heap->values[posicion]){       //verifica si el menor es el hijo der considerando el caso en que el hijo izq sea mayor al nodo actual
 				unsigned int aux = heap->values[posicion];
 				heap->values[posicion] = der;
 				heap->values[(posicion*2)+1] = aux;
 				pos = (posicion*2)+1;
 			}
 		}
-		if(izq < heap->values[posicion]){
+		if(izq < heap->values[posicion]){      //verifica si el menor es el hijo izq considerando el caso en que el der no exista
 			unsigned int aux = heap->values[posicion];
 			heap->values[posicion] = izq;
 			heap->values[posicion*2] = aux;
 			pos = posicion*2;
 		}
 	}
-	if(pos==0){
+	if(pos==0){     //entra cuando NO se cambia la posicion, es decir, cuando ya no se necesita seguir hundiendo el valor
 		return;
 	}
-	Hundir(heap, pos);
+	Hundir(heap, pos);     //llama nuevamente a la funcion con la posicion ya actualizada
 }
 
 /*****
@@ -159,10 +159,10 @@ void Hundir(HeapMin *heap, int posicion){
 * unsigned int, retorna el valor minimo del heap
 *****/
 unsigned int SacarValor(HeapMin *heap){
-	unsigned int aux = heap->values[1];
-	heap->values[1]= heap->values[(heap->size)--];
-	Hundir(heap, 1);
-	return aux;
+	unsigned int aux = heap->values[1];            //genera un auxiliar que contiene el valor de la raiz
+	heap->values[1]= heap->values[(heap->size)--];     //en la raiz pone el valor del ultimo nodo del heap
+	Hundir(heap, 1);     //hunde la nueva raiz para que se mantenga el heap como minimo
+	return aux;      //retorna el valor auxiliar extraido de la raiz, es decir, el minimo valor del heap
 }
 
 int main (){
